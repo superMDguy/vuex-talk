@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "lodash": "^4.17.10",
     "vue": "^2.5.16",
     "vuex": "^3.0.1"
   },
@@ -34,6 +35,11 @@
     "parserOptions": {
       "parser": "babel-eslint"
     }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true
   },
   "postcss": {
     "plugins": {
