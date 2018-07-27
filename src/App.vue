@@ -9,7 +9,7 @@
 
     <div class="column">
       <h1>Portfolio</h1>
-      <coin-list :coins="portfolio"></coin-list>
+      <coin-list :coins="portfolio" :show-remove="true"></coin-list>
 
       <div class="portfolioValue">
         Total Value: {{ portfolioValue | currency }}

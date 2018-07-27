@@ -2,8 +2,13 @@
   <ul>
     <li v-for="coin in coins" :key="coin.id">
       <span>{{ coin.name }}: {{ coin.quotes.USD.price | currency }}</span>
-      <font-awesome-icon v-if="inPortfolio(coin)" size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" title="Remove from portfolio" class="iconBtn remove" />
-      <font-awesome-icon v-else size="lg" icon="plus-square" @click="addToPortfolio(coin)" title="Add to portfolio" class="iconBtn add" />
+
+      <template v-if="inPortfolio(coin)">
+        <font-awesome-icon v-if="showRemove" size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable icon remove" />
+        <font-awesome-icon v-else size="lg" icon="check" class="icon added" />
+      </template>
+
+      <font-awesome-icon v-else size="lg" icon="plus-square" @click="addToPortfolio(coin)" title="Add to portfolio" class="clickable icon add" />
     </li>
   </ul>
 </template>
@@ -17,6 +22,10 @@ export default {
     coins: {
       type: Array,
       required: true
+    },
+    showRemove: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -42,12 +51,19 @@ ul {
     line-height: 30px;
     height: 30px;
 
-    .iconBtn {
+    .icon {
       position: absolute;
       right: 15px;
-      cursor: pointer;
+
+      &.clickable {
+        cursor: pointer;
+      }
 
       &.add {
+        color: lightskyblue;
+      }
+
+      &.added {
         color: lightgreen;
       }
 
