@@ -36,12 +36,14 @@ export default {
   },
   methods: {
     ...mapActions(['removeFromPortfolio', 'buy', 'sell']),
+
     initBuy(coin) {
       const message = `How much ${coin.symbol} would you like to buy?`
       this.buy({ coin, amount: prompt(message) })
     },
+
     initSell(coin) {
-      const message = `How much ${coin.symbol} would you like to buy?`
+      const message = `How much ${coin.symbol} would you like to sell?`
       this.sell({ coin, amount: prompt(message) })
     }
   }
