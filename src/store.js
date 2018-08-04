@@ -9,6 +9,10 @@ function simulateAsyncWait() {
   return new Promise(resolve => setTimeout(resolve, TIMEOUT))
 }
 
+function coinById(coins, coinId) {
+  return coins.find(coin => coin.id === coinId)
+}
+
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
 
@@ -22,9 +26,14 @@ export default new Vuex.Store({
       state.coins = coins
     },
     ADD_TO_PORTFOLIO(state, coin) {
+      Vue.set(coin, 'amountOwned', 0)
       state.portfolio.push(coin)
     },
+    TRANSACTION(state, { coin, amount }) {
+      coinById(state.portfolio, coin.id).amountOwned += amount
+    },
     REMOVE_FROM_PORTFOLIO(state, coin) {
+      Vue.set(coin, 'amountOwned', 0)
       const coinIndex = state.portfolio.findIndex(
         portfolioItem => portfolioItem.id === coin.id
       )
@@ -49,6 +58,18 @@ export default new Vuex.Store({
       axios
         .get('/ticker?structure=array')
         .then(res => commit('SET_COINS', res.data.data))
+    },
+    async buy({ commit }, { coin, amount }) {
+      await simulateAsyncWait()
+      commit('TRANSACTION', { coin, amount: parseFloat(amount) })
+    },
+    async sell({ commit }, { coin, amount }) {
+      if (amount <= coin.amountOwned) {
+        await simulateAsyncWait()
+        commit('TRANSACTION', { coin, amount: -1 * parseFloat(amount) })
+      } else {
+        throw 'Cannot sell more coins than currently owned.'
+      }
     }
   },
 
@@ -58,7 +79,10 @@ export default new Vuex.Store({
         Boolean(state.portfolio.find(coin => coin.id === coinToCheck.id))
     },
     portfolioValue(state) {
-      return state.portfolio.reduce((a, b) => a + b.quotes.USD.price, 0)
+      return state.portfolio.reduce(
+        (a, b) => a + b.amountOwned * b.quotes.USD.price,
+        0
+      )
     }
   }
 })

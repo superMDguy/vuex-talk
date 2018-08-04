@@ -7,12 +7,13 @@ import {
   faPlusSquare,
   faMinusSquare,
   faCartPlus,
-  faCheck
+  faCheck,
+  faTrashAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueCurrencyFilter from 'vue-currency-filter'
 
-library.add(faPlusSquare, faMinusSquare, faCartPlus, faCheck)
+library.add(faPlusSquare, faMinusSquare, faCartPlus, faCheck, faTrashAlt)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VueCurrencyFilter, {

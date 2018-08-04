@@ -26,14 +26,16 @@ body {
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #f5f5f5;
+    color: #424242;
 
     display: flex;
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 850px) {
       flex-direction: column;
     }
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: 850px) {
       flex-direction: row;
     }
 

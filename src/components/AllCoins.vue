@@ -1,20 +1,24 @@
 <template>
-    <div class="coinListWrapper">
-        <h1 class="coinListTitle">Coins</h1>
+  <div class="coinListWrapper">
+    <h1 class="coinListTitle">Coins</h1>
 
-        <ul class="coinList">
-            <li v-for="coin in coins" :key="coin.id">
-                <span>
-                    {{ coin.name }}: {{ coin.quotes.USD.price | currency }}
-                </span>
+    <ul class="coinList">
+      <li v-for="coin in coins" :key="coin.id">
+        <span>
+          {{ coin.name }}
+        </span>
 
-                <div class="actions">
-                    <font-awesome-icon v-if="inPortfolio(coin)" size="lg" icon="check" class="action added" />
-                    <font-awesome-icon v-else size="lg" icon="cart-plus" @click="addToPortfolio(coin)" title="Add to portfolio" class="clickable action add" />
-                </div>
-            </li>
-        </ul>
-    </div>
+        <span>
+          {{ coin.quotes.USD.price | currency }}
+        </span>
+
+        <div class="actions">
+          <font-awesome-icon v-if="inPortfolio(coin)" size="lg" icon="check" class="action added" />
+          <font-awesome-icon v-else size="lg" icon="cart-plus" @click="addToPortfolio(coin)" title="Add to portfolio" class="clickable action add" />
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -40,11 +44,11 @@ export default {
 
 .action {
   &.add {
-    color: lightskyblue;
+    color: #29b6f6;
   }
 
   &.added {
-    color: lightgreen;
+    color: #9e9e9e;
   }
 }
 </style>

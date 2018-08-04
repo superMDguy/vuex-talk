@@ -1,24 +1,29 @@
 <template>
-    <div class="coinListWrapper">
-        <h1 class="coinListTitle">Portfolio</h1>
+  <div class="coinListWrapper">
+    <h1 class="coinListTitle">Portfolio</h1>
 
-        <ul class="coinList">
-            <li v-for="coin in portfolio" :key="coin.id">
-                <span>{{ coin.name }}: {{ coin.quotes.USD.price | currency }}</span>
+    <ul class="coinList">
+      <li v-for="coin in portfolio" :key="coin.id">
+        <span>{{ coin.name }}</span>
 
-                <span>1 share</span>
+        <span>
+          {{ coin.quotes.USD.price | currency }}
+        </span>
 
-                <div class="actions">
-                    <font-awesome-icon size="lg" icon="plus-square" @click="addShares(coin)" class="clickable action add" />
-                    <font-awesome-icon size="lg" icon="minus-square" @click="removeFromPortfolio(coin)" class="clickable action remove" />
-                </div>
-            </li>
-        </ul>
+        <span>{{ coin.amountOwned }} {{ coin.symbol }} owned</span>
 
-        <div class="portfolioValue">
-            Total Value: {{ portfolioValue | currency }}
+        <div class="actions">
+          <font-awesome-icon size="lg" icon="plus-square" @click="initBuy(coin)" class="clickable action add" />
+          <font-awesome-icon size="lg" icon="minus-square" @click="initSell(coin)" class="clickable action remove" />
+          <font-awesome-icon size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable action trash" />
         </div>
+      </li>
+    </ul>
+
+    <div class="portfolioValue">
+      Portfolio Value: {{ portfolioValue | currency }}
     </div>
+  </div>
 </template>
 
 <script>
@@ -30,7 +35,15 @@ export default {
     ...mapGetters(['portfolioValue'])
   },
   methods: {
-    ...mapActions(['removeFromPortfolio'])
+    ...mapActions(['removeFromPortfolio', 'buy', 'sell']),
+    initBuy(coin) {
+      const message = `How much ${coin.symbol} would you like to buy?`
+      this.buy({ coin, amount: prompt(message) })
+    },
+    initSell(coin) {
+      const message = `How much ${coin.symbol} would you like to buy?`
+      this.sell({ coin, amount: prompt(message) })
+    }
   }
 }
 </script>
@@ -40,15 +53,16 @@ export default {
 
 .action {
   &.add {
-    color: lightskyblue;
+    color: #81c784;
   }
 
   &.remove {
-    color: red;
+    color: #f44336;
   }
 }
 
 .portfolioValue {
+  font-weight: 600;
   padding: 10px 0;
 }
 </style>
