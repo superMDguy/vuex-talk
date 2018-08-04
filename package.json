@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "talk:watch": "nodemon --watch talk ./talk/slides.md"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
@@ -25,6 +26,7 @@
     "@vue/cli-service": "^3.0.0-rc.5",
     "@vue/eslint-config-prettier": "^3.0.0-rc.5",
     "node-sass": "^4.9.0",
+    "nodemon": "^1.18.3",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.16"
   },
@@ -56,5 +58,10 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "nodemonConfig": {
+    "execMap": {
+      "md": "pandoc -t revealjs -s -o talk/slides.html -V revealjs-url=reveal.js -V theme=simple"
+    }
+  }
 }
