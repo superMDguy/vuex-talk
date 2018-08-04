@@ -1,40 +1,18 @@
 <template>
   <div id="app">
-    <div class="column">
-      <h1>
-        Coins
-      </h1>
-      <coin-list :coins="coins"></coin-list>
-    </div>
-
-    <div class="column">
-      <h1>Portfolio</h1>
-      <coin-list :coins="portfolio" :show-remove="true"></coin-list>
-
-      <div class="portfolioValue">
-        Total Value: {{ portfolioValue | currency }}
-      </div>
-    </div>
+    <portfolio class="column" />
+    <all-coins class="column" />
   </div>
 </template>
 
 <script>
-import CoinList from '@/components/CoinList'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import AllCoins from '@/components/AllCoins'
+import Portfolio from '@/components/Portfolio'
 
 export default {
   components: {
-    CoinList
-  },
-  computed: {
-    ...mapState(['coins', 'portfolio']),
-    ...mapGetters(['portfolioValue'])
-  },
-  methods: {
-    ...mapActions(['fetchCoins'])
-  },
-  created() {
-    this.fetchCoins()
+    AllCoins,
+    Portfolio
   }
 }
 </script>
@@ -50,7 +28,14 @@ body {
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     display: flex;
-    flex-direction: row;
+
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
+    }
+
+    @media screen and (min-width: 800px) {
+      flex-direction: row;
+    }
 
     .column {
       flex: 1;

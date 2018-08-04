@@ -5,13 +5,14 @@ import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faPlusSquare,
-  faTrashAlt,
+  faMinusSquare,
+  faCartPlus,
   faCheck
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueCurrencyFilter from 'vue-currency-filter'
 
-library.add(faPlusSquare, faTrashAlt, faCheck)
+library.add(faPlusSquare, faMinusSquare, faCartPlus, faCheck)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VueCurrencyFilter, {

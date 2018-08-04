@@ -25,7 +25,7 @@ export default new Vuex.Store({
       state.portfolio.push(coin)
     },
     REMOVE_FROM_PORTFOLIO(state, coin) {
-      const coinIndex = state.portfolio.indexOf(
+      const coinIndex = state.portfolio.findIndex(
         portfolioItem => portfolioItem.id === coin.id
       )
       state.portfolio.splice(coinIndex, 1)
