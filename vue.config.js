@@ -1,5 +1,8 @@
+const srcFolder = `${__dirname}/src-step${process.env.STEP}`
+
 module.exports = {
   lintOnSave: false,
+
   devServer: {
     proxy: {
       '/api': {
@@ -9,6 +12,17 @@ module.exports = {
           '^/api': ''
         }
       }
+    }
+  },
+
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': srcFolder
+      }
+    },
+    entry: {
+      app: `${srcFolder}/main.js`
     }
   }
 }
