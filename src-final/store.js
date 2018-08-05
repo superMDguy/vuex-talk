@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
+import coins from '@/coins.json'
 
 Vue.use(Vuex)
 
@@ -60,9 +61,11 @@ export default new Vuex.Store({
     },
 
     async fetchCoins({ commit }) {
-      axios
-        .get('/ticker?structure=array')
-        .then(res => commit('SET_COINS', res.data.data))
+      await simulateAsyncWait()
+      commit('SET_COINS', coins)
+      // axios
+      //   .get('/ticker?structure=array')
+      //   .then(res => commit('SET_COINS', res.data.data))
     },
 
     async buy({ commit }, { coin, amount }) {

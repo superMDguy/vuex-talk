@@ -1,4 +1,4 @@
-const srcFolder = `${__dirname}/src-step${process.env.STEP}`
+const srcFolder = `${__dirname}/src-${process.env.STEP}`
 
 module.exports = {
   lintOnSave: false,
