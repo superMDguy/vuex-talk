@@ -18,9 +18,11 @@ ul.coinList {
   li {
     margin: 10px 0;
     padding: 15px;
-    border: 1px solid gray;
     line-height: 30px;
     height: 30px;
+
+    border: 1px solid gray;
+    background-color: #fefefe;
 
     display: flex;
     flex-direction: row;
