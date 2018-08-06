@@ -8,7 +8,11 @@ date: August 9, 2018
 
 ## Flux
 
+<!--
+- Architecture, not framework or library. Though there is flux library, and flummox
 - Focus on controlled, unidirectional data flow
+- Used for React
+-->
 
 ##
 
@@ -19,12 +23,20 @@ date: August 9, 2018
 <!--
 - Distributes actions to all stores
 - One dispatcher per application
+- Has register method to register listener to dispatches
+- Has dispatch method
 -->
 
 ```js
-import { Dispatcher } from 'flux'
+class Dispatcher {
+  register(callback) {
+    // adds callback to callbacks
+  }
 
-const dispatcher = new Dispatcher()
+  dispatch(action) {
+    // runs each callback with action
+  }
+}
 ```
 
 ## Stores
@@ -36,25 +48,15 @@ const dispatcher = new Dispatcher()
 -->
 
 ```js
-import { ReduceStore } from 'flux/utils'
-
-class CounterStore extends ReduceStore {
+class Store {
   constructor() {
-    super(CounterStore)
-  }
-
-  getInitialState() {
-    return 0
-  }
-
-  reduce(state, action) {
-    switch (action.type) {
-      case ActionTypes.ADD:
-        return state + 1
-
-      default:
-        return state
+    this.state = {
+      count: 0
     }
+  }
+
+  handleAdd(amount) {
+    this.setState({ count: this.state.count + amount })
   }
 }
 ```
@@ -62,17 +64,16 @@ class CounterStore extends ReduceStore {
 ## Actions
 
 <!--
-    - Object, have type property + other data
+- Object, have type property + other data
+- Noramllly used as action creators return action to be dispatched to store
 -->
 
 ```js
-const actions = {
-  increment() {
-    dispatcher.dispatch({
-      type: ActionTypes.ADD,
-      amount: 1
-    })
-  }
+function incrementAction() {
+  dispatcher.dispatch({
+    type: ActionTypes.ADD,
+    amount: 1
+  })
 }
 ```
 
@@ -138,6 +139,44 @@ store.dispatch({ type: ActionTypes.ADD, amount: 3 }) // logs 0
 
 ## Vuex
 
-## One-way Data Flow
+> A state management pattern + library for Vue.js applications
 
-![flow diagram](images/flow.png)
+<!--
+- Created to solve problem of shared state that needs to be mutated
+- Can't always rely on parent/child relationship, better to have global store
+- Stores are reactive, built around Vue
+- No direcly mutating state, must happen in mutation
+- Not immutable, because that wouldn't work with vue's reactivity
+-->
+
+## Vuex Example
+
+<!--
+- Much simpler than flux, redux. Everything encapsulated in object, but still separation of state vs actions
+- Example from docs, which are very good
+-->
+
+```js
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment(state) {
+      state.count++
+    }
+  }
+})
+
+store.commit('increment')
+
+console.log(store.state.count) // -> 1
+```
+
+##
+
+![Vuex flow diagram](images/flow.png)
+
+## Livecoding
+
+## Questions?
