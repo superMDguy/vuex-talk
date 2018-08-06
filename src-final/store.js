@@ -1,15 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import axios from 'axios'
-import coins from '@/coins.json'
-import { keyedAsyncTask } from '@/async-task.js'
+import api from '@/../lib/api'
+// import { keyedAsyncTask } from '@/async-task.js'
 
 Vue.use(Vuex)
-
-function simulateAsyncWait() {
-  const TIMEOUT = 1000
-  return new Promise(resolve => setTimeout(resolve, TIMEOUT))
-}
 
 function coinById(coins, coinId) {
   return coins.find(coin => coin.id === coinId)
@@ -49,31 +43,28 @@ export default new Vuex.Store({
   actions: {
     async addToPortfolio({ commit, getters }, coin) {
       if (!getters.inPortfolio(coin)) {
-        await simulateAsyncWait()
+        await api.addToPortfolio(coin)
         commit('ADD_TO_PORTFOLIO', coin)
       }
     },
 
     async removeFromPortfolio({ commit, getters }, coin) {
       if (getters.inPortfolio(coin)) {
-        await simulateAsyncWait()
+        await api.removeFromPortfolio(coin)
         commit('REMOVE_FROM_PORTFOLIO', coin)
       }
     },
 
     async fetchCoins({ commit }) {
-      await simulateAsyncWait()
+      const coins = await api.fetchCoins()
       commit('SET_COINS', coins)
-      // axios
-      //   .get('/ticker?structure=array')
-      //   .then(res => commit('SET_COINS', res.data.data))
     },
 
     async buy({ commit }, { coin, amount }) {
       amount = parseFloat(amount)
 
       if (amount) {
-        await simulateAsyncWait()
+        await api.transaction(coin, amount)
         commit('TRANSACTION', { coin, amount: parseFloat(amount) })
       }
     },
@@ -83,7 +74,7 @@ export default new Vuex.Store({
         amount = parseFloat(amount)
 
         if (amount) {
-          await simulateAsyncWait()
+          await api.transaction(coin, -1 * amount)
           commit('TRANSACTION', { coin, amount: -1 * amount })
         }
       } else {
