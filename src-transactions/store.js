@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/../lib/api'
-// import { asyncTask, keyedAsyncTask } from '@/../lib/async-task'
 
 Vue.use(Vuex)
 

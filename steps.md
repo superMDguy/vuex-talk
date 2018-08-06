@@ -55,4 +55,40 @@ What to do to transition between each step during talk
 }
 ```
 
-## portfolio --> 
+## portfolio --> transactions
+
+- Add `TRANSACTION` mutation to store
+
+```js
+TRANSACTION(state, { coin, amount }) {
+    coinById(state.portfolio, coin.id).amountOwned += amount
+}
+```
+
+- Add `buy` and `sell` actions. Both run `amount = parseFloat(amount)`, sell has extra `amount <= coin.amountOwned` check that throws error otherwise.
+- In Portfolio: `mapActions` `buy` and `sell`. Add `initBuy` and `initSell`, that use prompt.
+- Add icon buttons for `buy` and `sell`
+
+```html
+<div class="actions">
+    <font-awesome-icon size="lg" icon="plus-square" @click="initBuy(coin)" class="clickable action buy" />
+    <font-awesome-icon size="lg" icon="minus-square" @click="initSell(coin)" class="clickable action sell" />
+</div>
+```
+
+- Add remove from portfolio mutation, action. Action should also SET_AMOUNT_OWNED to 0, and also check if in portfolio.
+
+```js
+REMOVE_FROM_PORTFOLIO(state, coin) {
+    const coinIndex = state.portfolio.findIndex(
+        portfolioItem => portfolioItem.id === coin.id
+    )
+    state.portfolio.splice(coinIndex, 1)
+}
+```
+
+- Add remove action to Portfolio comp
+
+```html
+<font-awesome-icon size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable action trash" />
+```
