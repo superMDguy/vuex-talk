@@ -19,13 +19,14 @@ ul.coinList {
     margin: 10px 0;
     padding: 15px;
     border: 1px solid gray;
-    position: relative;
     line-height: 30px;
     height: 30px;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    position: relative;
 
     & > *:not(.actions) {
       flex: 1;
@@ -37,6 +38,22 @@ ul.coinList {
 
         &.clickable {
           cursor: pointer;
+        }
+
+        &.add {
+          color: #29b6f6;
+        }
+
+        &.added {
+          color: #9e9e9e;
+        }
+
+        &.buy {
+          color: #81c784;
+        }
+
+        &.sell {
+          color: #f44336;
         }
       }
     }

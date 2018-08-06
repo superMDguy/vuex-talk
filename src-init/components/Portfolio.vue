@@ -11,20 +11,5 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/coinList';
-
-.action {
-  &.add {
-    color: #81c784;
-  }
-
-  &.remove {
-    color: #f44336;
-  }
-}
-
-.portfolioValue {
-  font-weight: 600;
-  padding: 10px 0;
-}
+@import '../../lib/styles/coinList';
 </style>

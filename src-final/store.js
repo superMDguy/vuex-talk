@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import axios from 'axios'
 import coins from '@/coins.json'
+import { keyedAsyncTask } from '@/async-task.js'
 
 Vue.use(Vuex)
 

@@ -8,15 +8,5 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/coinList';
-
-.action {
-  &.add {
-    color: #29b6f6;
-  }
-
-  &.added {
-    color: #9e9e9e;
-  }
-}
+@import '../../lib/styles/coinList';
 </style>

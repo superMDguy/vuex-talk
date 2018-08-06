@@ -3,7 +3,7 @@
     <h1 class="coinListTitle">Portfolio</h1>
 
     <ul class="coinList">
-      <li v-for="coin in portfolio" :key="coin.id">
+      <li v-for="coin in portfolio" :key="coin.id" class="loading">
         <span>{{ coin.name }}</span>
 
         <span>
@@ -13,8 +13,8 @@
         <span>{{ coin.amountOwned }} {{ coin.symbol }} owned</span>
 
         <div class="actions">
-          <font-awesome-icon size="lg" icon="plus-square" @click="initBuy(coin)" class="clickable action add" />
-          <font-awesome-icon size="lg" icon="minus-square" @click="initSell(coin)" class="clickable action remove" />
+          <font-awesome-icon size="lg" icon="plus-square" @click="initBuy(coin)" class="clickable action buy" />
+          <font-awesome-icon size="lg" icon="minus-square" @click="initSell(coin)" class="clickable action sell" />
           <font-awesome-icon size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable action trash" />
         </div>
       </li>
@@ -51,17 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/coinList';
-
-.action {
-  &.add {
-    color: #81c784;
-  }
-
-  &.remove {
-    color: #f44336;
-  }
-}
+@import '../../lib/styles/coinList';
 
 .portfolioValue {
   font-weight: 600;
