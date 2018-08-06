@@ -7,21 +7,27 @@
         <span>{{ coin.name }}</span>
 
         <span>{{ coin.quotes.USD.price | currency }}</span>
+
+        <div class="actions">
+          <font-awesome-icon v-if="inPortfolio(coin)" size="lg" icon="check" class="action added" />
+          <font-awesome-icon v-else size="lg" icon="cart-plus" @click="addToPortfolio(coin)" class="clickable action add" />
+        </div>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['coins'])
+    ...mapState(['coins']),
+    ...mapGetters(['inPortfolio'])
   },
 
   methods: {
-    ...mapActions(['fetchCoins'])
+    ...mapActions(['fetchCoins', 'addToPortfolio'])
   },
 
   created() {

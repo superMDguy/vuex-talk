@@ -3,12 +3,10 @@
     <h1 class="coinListTitle">Portfolio</h1>
 
     <ul class="coinList">
-      <li v-for="coin in portfolio" :key="coin.id" class="loading">
+      <li v-for="coin in portfolio" :key="coin.id">
         <span>{{ coin.name }}</span>
 
-        <span>
-          {{ coin.quotes.USD.price | currency }}
-        </span>
+        <span>{{ coin.quotes.USD.price | currency }}</span>
 
         <span>{{ coin.amountOwned }} {{ coin.symbol }} owned</span>
 
