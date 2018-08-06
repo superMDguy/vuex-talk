@@ -9,8 +9,7 @@
         <span>{{ coin.quotes.USD.price | currency }}</span>
 
         <div class="actions">
-          <font-awesome-icon v-if="inPortfolio(coin)" size="lg" icon="check" class="action added" />
-          <font-awesome-icon v-else size="lg" icon="cart-plus" @click="addToPortfolio(coin)" title="Add to portfolio" class="clickable action add" />
+          <font-awesome-icon size="lg" icon="cart-plus" class="clickable action add" />
         </div>
       </li>
     </ul>
@@ -18,16 +17,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['coins']),
-    ...mapGetters(['inPortfolio'])
+    ...mapState(['coins'])
   },
 
   methods: {
-    ...mapActions(['fetchCoins', 'addToPortfolio'])
+    ...mapActions(['fetchCoins'])
   },
 
   created() {

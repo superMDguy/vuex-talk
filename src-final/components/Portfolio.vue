@@ -34,6 +34,7 @@ export default {
     ...mapState(['portfolio']),
     ...mapGetters(['portfolioValue'])
   },
+
   methods: {
     ...mapActions(['removeFromPortfolio', 'buy', 'sell']),
 
