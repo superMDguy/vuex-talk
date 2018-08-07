@@ -19,6 +19,7 @@ What to do to transition between each step during talk
 - Create mutation `SET_COINS`
 - Create action `fetchCoins` that `await`s `api.fetchCoins`, and runs commit
 - In allCoins, `mapState` for `coins` and `mapActions` for `fetchCoins`
+- Mention `map{*}` helpers vs `this.$store.{*}`. Debuggability?
 - Add v-for over coins in template, with `coin.name` and `coin.quotes.USD.price | currency` spans
 
 ## fetch-coins --> portfolio
@@ -40,6 +41,7 @@ What to do to transition between each step during talk
 - In Portfolio: `mapState` for portfolio
 - Loop over portfolio, show name, price, `{amountOwned} {symbol}`
 - Add `portfolioValue` getter to store, and map it into Portfolio
+- Discuss local computed vs store getter. Maybe only if used by multiple components?
 - Show portfolio value:
 
 ```html

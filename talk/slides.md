@@ -4,138 +4,11 @@ title: Vuex in Depth
 date: August 9, 2018
 ---
 
-## Frontend State Management
+## Outline
 
-## Flux
-
-<!--
-- Architecture, not framework or library. Though there is flux library, and flummox
-- Focus on controlled, unidirectional data flow
-- Used for React
--->
-
-##
-
-![Flux flow diagram](images/flux-simple-f8-diagram-with-client-action-1300w.png)
-
-## Dispatchers
-
-<!--
-- Distributes actions to all stores
-- One dispatcher per application
-- Has register method to register listener to dispatches
-- Has dispatch method
--->
-
-```js
-class Dispatcher {
-  register(callback) {
-    // adds callback to callbacks
-  }
-
-  dispatch(action) {
-    // runs each callback with action
-  }
-}
-```
-
-## Stores
-
-<!--
-    - Contain application state for specific application domain
-    - Receives all actions from dispatcher and potentially updates data and emits change event
-    - Each store only acts on actions that relate to it
--->
-
-```js
-class Store {
-  constructor() {
-    this.state = {
-      count: 0
-    }
-  }
-
-  handleAdd(amount) {
-    this.setState({ count: this.state.count + amount })
-  }
-}
-```
-
-## Actions
-
-<!--
-- Object, have type property + other data
-- Noramllly used as action creators return action to be dispatched to store
--->
-
-```js
-function incrementAction() {
-  dispatcher.dispatch({
-    type: ActionTypes.ADD,
-    amount: 1
-  })
-}
-```
-
-## Views
-
-<!--
-- Subscribe to change events from stores
--->
-
-- Can use any view library
-
-## Redux
-
-<!--
-- Simplified, less boilerplate version of Flux
-- No dispatcher, each store has dispatch function
-- Store is just state, reducers mutate state.
--->
-
-## JS Array Reducers
-
-<!--
-- Takes current state, payload, and returns new state
--->
-
-```js
-const sum = [1, 2, 3].reduce((a, b) => a + b)
-```
-
-## Redux Reducers
-
-```js
-function counterReducer(state = 0, action) {
-  switch (action.type) {
-    case ActionTypes.ADD:
-      return state + action.amount
-    default:
-      return state
-  }
-}
-
-const initialState = 0
-const mutations = [
-  { type: ActionTypes.ADD, amount: 2 },
-  { type: ActionTypes.ADD, amount: 1 }
-]
-const finalState = mutations.reduce(counterReducer, initialState) // 3
-```
-
-## Redux Store
-
-<!--
-- Used instead of Flux
-- Store is forced to be immutable: prevents complicated interactions, must subscribe to changes
--->
-
-```js
-import { createStore } from 'redux'
-const store = createStore(counterReducer)
-store.subscribe(() => console.log(store.getState()))
-store.dispatch({ type: ActionTypes.ADD, amount: 3 }) // logs 0
-```
+- 05 minutes intro
+- 10 minutes API
+- 35 minutes livecoding
 
 ## Vuex
 
@@ -147,35 +20,171 @@ store.dispatch({ type: ActionTypes.ADD, amount: 3 }) // logs 0
 - Stores are reactive, built around Vue
 - No direcly mutating state, must happen in mutation
 - Not immutable, because that wouldn't work with vue's reactivity
+- Much simpler than flux, redux. Everything encapsulated in object, but still separation of state vs actions
+- Single state tree, 1 store per app. Can have multiple modules in store, with modules within modules
 -->
 
-## Vuex Example
+##
+
+![Vuex flow diagram](images/flow.png)
+
+## API
+
+```js
+const store = new Vuex.Store({})
+```
+
+## State
+
+```js
+const store = new Vuex.Store({
+  state: {
+    name: 'John Doe',
+    favoriteColor: 'turquoise'
+  }
+})
+
+console.log(store.state.name) // John Doe
+```
+
+## Mutations
 
 <!--
-- Much simpler than flux, redux. Everything encapsulated in object, but still separation of state vs actions
-- Example from docs, which are very good
+- Store is mutable to enable reactivity, but mutations constrained
+- COMMIT mutations
 -->
 
 ```js
 const store = new Vuex.Store({
   state: {
-    count: 0
+    name: 'John Doe',
+    favoriteColor: 'turquoise'
   },
+
   mutations: {
-    increment(state) {
-      state.count++
+    SET_NAME(state, newName) {
+      state.name = newName
+    },
+
+    SET_FAVORITE_COLOR(state, newFavoriteColor) {
+      state.favoriteColor = newFavoriteColor
     }
   }
 })
 
-store.commit('increment')
-
-console.log(store.state.count) // -> 1
+store.commit('SET_NAME', 'Jane Doe')
+console.log(store.state.name) // Jane Doe
 ```
 
-##
+## Actions
 
-![Vuex flow diagram](images/flow.png)
+<!--
+- DISPATCH actions
+-->
+
+```js
+const store = new Vuex.Store({
+  state: {
+    name: 'John Doe',
+    favoriteColor: 'turquoise'
+  },
+
+  mutations: {
+    SET_NAME(state, newName) {
+      state.name = newName
+    },
+
+    SET_FAVORITE_COLOR(state, newFavoriteColor) {
+      state.favoriteColor = newFavoriteColor
+    }
+  },
+
+  actions: {
+    async fetchUserDetails({ commit }, userId) {
+      const { name, favoriteColor } = await api.fetchUserDetails(userId)
+      commit('SET_NAME', name)
+      commit('SET_FAVORITE_COLOR', favoriteColor)
+    }
+  }
+})
+
+store.dispatch('fetchUserDetails', 'superMDguy').then(() => {
+  console.log(store.state.name) // retrieved name from API
+  console.log(store.state.favoriteColor) // retrieved favorite color from API
+})
+```
+
+## Getters
+
+<!--
+- Like computed properties, has caching for performance
+- Accessed as property, not function
+-->
+
+```js
+const store = new Vuex.Store({
+  state: {
+    name: 'John Doe',
+    favoriteColor: 'turquoise'
+  },
+
+  mutations: {
+    SET_NAME(state, newName) {
+      state.name = newName
+    },
+
+    SET_FAVORITE_COLOR(state, newFavoriteColor) {
+      state.favoriteColor = newFavoriteColor
+    }
+  },
+
+  actions: {
+    async fetchUserDetails({ commit }, userId) {
+      const { name, favoriteColor } = await api.fetchUserDetails(userId)
+      commit('SET_NAME', name)
+      commit('SET_FAVORITE_COLOR', favoriteColor)
+    }
+  },
+
+  getters: {
+    userSummary(state) {
+      return `${state.name}, favorite color is ${state.favoriteColor}`
+    }
+  }
+})
+
+console.log(store.getters.userSummary) // John Doe, favorite color is turquoise
+```
+
+## Modules
+
+```js
+const moduleA = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}
+
+const moduleB = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  },
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+})
+
+console.log(store.state.a) // -> `moduleA`'s state
+console.log(store.state.b) // -> `moduleB`'s state
+```
 
 ## Livecoding
 
