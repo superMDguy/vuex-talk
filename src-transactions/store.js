@@ -4,16 +4,11 @@ import api from '@/../lib/api'
 
 Vue.use(Vuex)
 
-function coinById(coins, coinId) {
-  return coins.find(coin => coin.id === coinId)
-}
-
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
 
   state: {
-    coins: [],
-    portfolio: []
+    coins: []
   },
 
   mutations: {
@@ -22,22 +17,19 @@ export default new Vuex.Store({
     },
 
     SET_AMOUNT_OWNED(state, { coin, amount }) {
-      Vue.set(coinById(state.coins, coin.id), 'amountOwned', amount)
+      Vue.set(coin, 'amountOwned', amount)
     },
 
     ADD_TO_PORTFOLIO(state, coin) {
-      state.portfolio.push(coinById(state.coins, coin.id))
+      Vue.set(coin, 'inPortfolio', true)
     },
 
     TRANSACTION(state, { coin, amount }) {
-      coinById(state.portfolio, coin.id).amountOwned += amount
+      coin.amountOwned += amount
     },
 
     REMOVE_FROM_PORTFOLIO(state, coin) {
-      const coinIndex = state.portfolio.findIndex(
-        portfolioItem => portfolioItem.id === coin.id
-      )
-      state.portfolio.splice(coinIndex, 1)
+      coin.inPortfolio = false
     }
   },
 
@@ -47,8 +39,8 @@ export default new Vuex.Store({
       commit('SET_COINS', coins)
     },
 
-    async addToPortfolio({ commit, getters }, coin) {
-      if (!getters.inPortfolio(coin)) {
+    async addToPortfolio({ commit }, coin) {
+      if (!coin.inPortfolio) {
         await api.addToPortfolio(coin)
         commit('SET_AMOUNT_OWNED', { coin, amount: 0 })
         commit('ADD_TO_PORTFOLIO', coin)
@@ -77,8 +69,8 @@ export default new Vuex.Store({
       }
     },
 
-    async removeFromPortfolio({ commit, getters }, coin) {
-      if (getters.inPortfolio(coin)) {
+    async removeFromPortfolio({ commit }, coin) {
+      if (coin.inPortfolio) {
         await api.removeFromPortfolio(coin)
         commit('SET_AMOUNT_OWNED', { coin, amount: 0 })
         commit('REMOVE_FROM_PORTFOLIO', coin)
@@ -87,15 +79,15 @@ export default new Vuex.Store({
   },
 
   getters: {
-    inPortfolio(state) {
-      return coin => Boolean(coinById(state.portfolio, coin.id))
-    },
-
-    portfolioValue(state) {
-      return state.portfolio.reduce(
+    portfolioValue(state, getters) {
+      return getters.portfolio.reduce(
         (acc, coin) => acc + coin.amountOwned * coin.quotes.USD.price,
         0
       )
+    },
+
+    portfolio(state) {
+      return state.coins.filter(coin => coin.inPortfolio)
     }
   }
 })

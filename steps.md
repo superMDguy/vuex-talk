@@ -94,3 +94,5 @@ REMOVE_FROM_PORTFOLIO(state, coin) {
 ```html
 <font-awesome-icon size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable action trash" />
 ```
+
+## transactions -> async-task

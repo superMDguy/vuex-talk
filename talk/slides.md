@@ -9,6 +9,7 @@ date: August 9, 2018
 - 05 minutes intro
 - 10 minutes API
 - 35 minutes livecoding
+  - 10 minutes setup fetching coins
 
 ## Vuex
 
