@@ -96,3 +96,12 @@ REMOVE_FROM_PORTFOLIO(state, coin) {
 ```
 
 ## transactions -> async-task
+
+- Show how slow it is
+- import asyncTask in store
+- Add `fetchCoinsTask` to state
+- Refactor fetchCoins to do `state.fetchCoins.start()`
+- In AllCoins: `mapState` in the `fetchCoinsTask`, and add `div.loader` if it's spinning
+- Add `v-else-if="fetchCoinsTask.hasValue"` to `ul.coinList`
+- In `api.js` add line to throw exception. In AllCoins, add `div.error` if `fetchCoinsTask.error` with text `{{ fetchCoinsTask.error }}`
+- Discuss: has loading, also error. Features: always uses newest request, discards returned value and ends promise chain if newer request sent. Also way to deal with situatiouns where you want multiple concurrent requests, for example when adding items to portfolio. Talk to me afterwards if interested.

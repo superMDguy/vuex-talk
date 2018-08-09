@@ -8,7 +8,15 @@
 
         <span>{{ coin.quotes.USD.price | currency }}</span>
 
-        <span>{{ coin.amountOwned }} {{ coin.symbol }} owned</span>
+        <span>
+          <template v-if="!transactionTask.pending({coin})">
+            {{ coin.amountOwned }} {{ coin.symbol }} owned
+          </template>
+
+          <template v-if="transactionTask.spinning({coin})">
+            ...
+          </template>
+        </span>
 
         <div class="actions">
           <font-awesome-icon size="lg" icon="plus-square" @click="initBuy(coin)" class="clickable action buy" />
@@ -25,10 +33,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   computed: {
+    ...mapState(['transactionTask']),
     ...mapGetters(['portfolio', 'portfolioValue'])
   },
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/../lib/api'
+import { asyncTask, keyedAsyncTask } from '@/../lib/async-task'
 
 Vue.use(Vuex)
 
@@ -8,7 +9,15 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
 
   state: {
-    coins: []
+    coins: [],
+
+    fetchCoinsTask: asyncTask({
+      fnApiCall: api.fetchCoins
+    }),
+
+    transactionTask: keyedAsyncTask(({ coin }) => coin.id, {
+      fnApiCall: api.transaction
+    })
   },
 
   mutations: {
@@ -34,8 +43,8 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async fetchCoins({ commit }) {
-      const coins = await api.fetchCoins()
+    async fetchCoins({ commit, state }) {
+      const coins = await state.fetchCoinsTask.start()
       commit('SET_COINS', coins)
     },
 
@@ -47,22 +56,23 @@ export default new Vuex.Store({
       }
     },
 
-    async buy({ commit }, { coin, amount }) {
+    async buy({ commit, state }, { coin, amount }) {
       amount = parseFloat(amount)
 
       if (amount) {
-        await api.transaction(coin, amount)
+        await state.transactionTask.start({ coin, amount })
         commit('TRANSACTION', { coin, amount })
       }
     },
 
-    async sell({ commit }, { coin, amount }) {
+    async sell({ commit, state }, { coin, amount }) {
       if (amount <= coin.amountOwned) {
         amount = parseFloat(amount)
 
         if (amount) {
-          await api.transaction(coin, -1 * amount)
-          commit('TRANSACTION', { coin, amount: -1 * amount })
+          const payload = { coin, amount: -1 * amount }
+          await state.transactionTask.start(payload)
+          commit('TRANSACTION', payload)
         }
       } else {
         throw 'Cannot sell more coins than currently owned.'

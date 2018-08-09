@@ -2,7 +2,11 @@
   <div class="coinListWrapper">
     <h1 class="coinListTitle">Coins</h1>
 
-    <ul class="coinList">
+    <div class="loader" v-if="fetchCoinsTask.spinning"></div>
+    <div class="error" v-if="fetchCoinsTask.error">
+      {{ fetchCoinsTask.error }}
+    </div>
+    <ul class="coinList" v-else-if="fetchCoinsTask.hasValue">
       <li v-for="coin in coins" :key="coin.id">
         <span>{{ coin.name }}</span>
 
@@ -22,7 +26,7 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['coins'])
+    ...mapState(['coins', 'fetchCoinsTask'])
   },
 
   methods: {
@@ -38,4 +42,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../lib/styles/coinList';
+@import '../../lib/styles/loader';
 </style>
