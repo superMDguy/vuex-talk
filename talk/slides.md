@@ -188,4 +188,6 @@ console.log(store.state.b) // -> `moduleB`'s state
 
 ## Livecoding
 
+Repo: [https://git.io/fNHEF]()
+
 ## Questions?
