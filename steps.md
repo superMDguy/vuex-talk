@@ -24,21 +24,20 @@ What to do to transition between each step during talk
 
 ## fetch-coins --> portfolio
 
-- Add `coinById` helper
 - Add `SET_AMOUNT_OWNED`, `ADD_TO_PORTFOLIO` mutations
-- Create `inPortfolio` getter
 - Add `addToPortfolio` action, that checks if in portfolio, resets amount owned, runs commit
-- In AllCoins: `mapGetters` for `inPortfolio`, `mapActions` for `addToPortfolio`
+- Add `portfolio` getter, that filters coins for `inPortfolio`
+- In AllCoins: `mapActions` for `addToPortfolio`
 - Add cart actions:
 
 ```html
 <div class="actions">
-    <font-awesome-icon v-if="inPortfolio(coin)" size="lg" icon="check" class="action added" />
+    <font-awesome-icon v-if="coin.inPortfolio" size="lg" icon="check" class="action added" />
     <font-awesome-icon v-else size="lg" icon="cart-plus" @click="addToPortfolio(coin)" class="clickable action add" />
 </div>
 ```
 
-- In Portfolio: `mapState` for portfolio
+- In Portfolio: `mapGetters` for portfolio
 - Loop over portfolio, show name, price, `{amountOwned} {symbol}`
 - Add `portfolioValue` getter to store, and map it into Portfolio
 - Discuss local computed vs store getter. Maybe only if used by multiple components?
@@ -63,7 +62,7 @@ What to do to transition between each step during talk
 
 ```js
 TRANSACTION(state, { coin, amount }) {
-    coinById(state.portfolio, coin.id).amountOwned += amount
+    coin.amountOwned += amount
 }
 ```
 
@@ -79,16 +78,6 @@ TRANSACTION(state, { coin, amount }) {
 ```
 
 - Add remove from portfolio mutation, action. Action should also SET_AMOUNT_OWNED to 0, and also check if in portfolio.
-
-```js
-REMOVE_FROM_PORTFOLIO(state, coin) {
-    const coinIndex = state.portfolio.findIndex(
-        portfolioItem => portfolioItem.id === coin.id
-    )
-    state.portfolio.splice(coinIndex, 1)
-}
-```
-
 - Add remove action to Portfolio comp
 
 ```html
