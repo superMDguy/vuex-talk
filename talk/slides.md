@@ -1,5 +1,5 @@
 ---
-author: Matthew Dangerfield
+author: Matthew Dangerfield (github.com/superMDguy)
 title: Vuex in Depth
 date: August 9, 2018
 ---
@@ -189,5 +189,29 @@ console.log(store.state.b) // -> `moduleB`'s state
 ## Livecoding
 
 Repo: [https://git.io/fNHEF]()
+
+## Coins Structure
+
+<!--
+- Data from coinmarketcap, downloaded for offline use
+- Array of objects, with inPortfolio flag, amountOwned
+- How it works: add coin to portfolio, buy and sell
+-->
+
+```json
+{
+  "id": 1,
+  "name": "Bitcoin",
+  "symbol": "BTC",
+  "quotes": {
+    "USD": {
+      "price": 6504.83559012
+    }
+  },
+
+  "inPortfolio": false,
+  "amountOwned": 0.0
+}
+```
 
 ## Questions?
