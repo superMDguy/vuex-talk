@@ -1,4 +1,4 @@
-const srcFolder = `${__dirname}/src-${process.env.STEP}`
+const srcFolder = `${__dirname}/src-${process.env.STEP || 'async-task'}`
 
 module.exports = {
   lintOnSave: false,
