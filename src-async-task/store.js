@@ -1,23 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/../lib/api'
-import { asyncTask, keyedAsyncTask } from '@/../lib/async-task'
+import tuxi from '@supermdguy/tuxi'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
 
   state: {
     coins: [],
 
-    fetchCoinsTask: asyncTask({
-      fnApiCall: api.fetchCoins
-    }),
+    fetchCoinsTask: tuxi.task(api.fetchCoins),
 
-    transactionTask: keyedAsyncTask(({ coin }) => coin.id, {
-      fnApiCall: api.transaction
-    })
+    transactionTask: tuxi.keyed(api.transaction, ({ coin }) => coin.id)
   },
 
   mutations: {
@@ -101,3 +97,6 @@ export default new Vuex.Store({
     }
   }
 })
+
+tuxi.config.vuexStore = store
+export default store
