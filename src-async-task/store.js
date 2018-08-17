@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/../lib/api'
-import tuxi from '@supermdguy/tuxi'
+import tuxi from 'tuxi'
 
 Vue.use(Vuex)
 
@@ -13,7 +13,9 @@ const store = new Vuex.Store({
 
     fetchCoinsTask: tuxi.task(api.fetchCoins),
 
-    transactionTask: tuxi.keyed(api.transaction, ({ coin }) => coin.id)
+    transactionTask: tuxi.keyed(api.transaction, ({ coin }) => coin.id, {
+      spinnerDelay: 500
+    })
   },
 
   mutations: {
