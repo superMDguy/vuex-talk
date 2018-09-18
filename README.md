@@ -13,6 +13,6 @@ First, clone the repo and run `npm install`. To update the cryptocurrency price 
 3. `fetch-coins`: Display coins fetched from api
 4. `portfolio`: Allow adding coins to portfolio
 5. `transactions`: Allow buying/selling coins in portfolio
-6. `async-task`: Use [tuxi](https://www.npmjs.com/package/tuxi) to add boilerplate-free loaders
+6. `tuxi`: Use [tuxi](https://www.npmjs.com/package/tuxi) to add boilerplate-free loaders
 
 For more information on what to do in between each step, see [steps.md](https://github.com/superMDguy/vuex-demo/blob/HEAD/steps.md)

@@ -84,7 +84,7 @@ TRANSACTION(state, { coin, amount }) {
 <font-awesome-icon size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable action trash" />
 ```
 
-## transactions -> async-task
+## transactions -> tuxi
 
 - Show how slow it is
 - import asyncTask in store

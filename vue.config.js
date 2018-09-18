@@ -1,4 +1,4 @@
-const srcFolder = `${__dirname}/src-${process.env.STEP || 'async-task'}`
+const srcFolder = `${__dirname}/src-${process.env.STEP || 'tuxi'}`
 
 module.exports = {
   lintOnSave: false,
