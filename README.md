@@ -1,6 +1,6 @@
 # Vuex demo
 
-Vuex talk + demo created for MidwestJS 2018
+Vuex talk + demo originally created for MidwestJS 2018
 
 ## How to run
 
