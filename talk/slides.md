@@ -1,7 +1,7 @@
 ---
 author: Matthew Dangerfield (github.com/superMDguy)
 title: Vuex in Depth
-date: August 9, 2018
+date: September 18, 2018
 ---
 
 ## Outline
