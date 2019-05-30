@@ -71,7 +71,8 @@ const store = new Vuex.Store({
   getters: {
     portfolioValue(state, getters) {
       return getters.portfolio.reduce(
-        (acc, coin) => acc + coin.amountOwned * coin.quotes.USD.price,
+        (totalValue, coin) =>
+          totalValue + coin.amountOwned * coin.quotes.USD.price,
         0
       )
     },

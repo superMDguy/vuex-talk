@@ -11,25 +11,23 @@
     "data-update": "wget 'https://api.coinmarketcap.com/v2/ticker/?structure=array' -O ./shared/coins.json"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.4",
-    "@fortawesome/free-solid-svg-icons": "^5.3.1",
-    "@fortawesome/vue-fontawesome": "^0.1.1",
-    "is-promise": "^2.1.0",
-    "npm": "^6.4.1",
-    "tuxi": "^0.2.1",
-    "vue": "^2.5.17",
-    "vue-currency-filter": "^2.3.0",
-    "vuex": "^3.0.1"
+    "@fortawesome/fontawesome-svg-core": "^1.2.18",
+    "@fortawesome/free-solid-svg-icons": "^5.8.2",
+    "@fortawesome/vue-fontawesome": "^0.1.6",
+    "tuxi": "^0.3.0",
+    "vue": "^2.6.10",
+    "vue-currency-filter": "^3.4.2",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.3",
-    "@vue/cli-plugin-eslint": "^3.0.3",
-    "@vue/cli-service": "^3.0.3",
-    "@vue/eslint-config-prettier": "^3.0.3",
-    "node-sass": "^4.9.3",
-    "nodemon": "^1.18.4",
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,

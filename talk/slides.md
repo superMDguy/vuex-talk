@@ -1,7 +1,7 @@
 ---
 author: Matthew Dangerfield (github.com/superMDguy)
-title: Vuex in Depth
-date: September 18, 2018
+title: Intro to State Management with Vuex
+date: May 30, 2019 
 ---
 
 ## Outline
@@ -80,6 +80,7 @@ console.log(store.state.name) // Jane Doe
 
 <!--
 - DISPATCH actions
+- Mutations vs Actions. Can use mutations in components!
 -->
 
 ```js
@@ -117,7 +118,7 @@ store.dispatch('fetchUserDetails', 'superMDguy').then(() => {
 ## Getters
 
 <!--
-- Like computed properties, has caching for performance
+- Like computed properties, only updates when needed
 - Accessed as property, not function
 -->
 
