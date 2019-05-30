@@ -52,6 +52,6 @@ export default {
 
 
 <style lang="scss" scoped>
-@import '../../lib/styles/coinList';
-@import '../../lib/styles/loader';
+@import '../../shared/styles/coinList';
+@import '../../shared/styles/loader';
 </style>

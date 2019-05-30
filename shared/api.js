@@ -7,7 +7,7 @@ function simulateAsyncWait(averageTimeout) {
 
 const api = {
   async fetchCoins(error = false) {
-    await simulateAsyncWait(3000)
+    await simulateAsyncWait(300)
 
     if (error) {
       throw 'Error fetching coins'
@@ -20,7 +20,7 @@ const api = {
 const proxy = new Proxy(api, {
   get(target, key) {
     if (typeof key === 'string' && !(key in target)) {
-      return () => simulateAsyncWait(1000)
+      return () => simulateAsyncWait(300)
     }
 
     return target[key]

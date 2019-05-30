@@ -1,5 +1,5 @@
-import Vue from '../lib/main'
-import App from '../lib/App'
+import Vue from '../shared/main'
+import App from '../shared/App'
 import store from './store'
 
 new Vue({

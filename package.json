@@ -8,7 +8,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "talk:watch": "nodemon --watch talk ./talk/slides.md",
-    "data-update": "wget 'https://api.coinmarketcap.com/v2/ticker/?structure=array' -O ./lib/coins.json"
+    "data-update": "wget 'https://api.coinmarketcap.com/v2/ticker/?structure=array' -O ./shared/coins.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
