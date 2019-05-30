@@ -9,8 +9,19 @@
         <span>{{ coin.quotes.USD.price | currency }}</span>
 
         <div class="actions">
-          <font-awesome-icon v-if="coin.inPortfolio" size="lg" icon="check" class="action added" />
-          <font-awesome-icon v-else size="lg" icon="cart-plus" @click="addToPortfolio(coin)" class="clickable action add" />
+          <font-awesome-icon
+            v-if="coin.inPortfolio"
+            size="lg"
+            icon="check"
+            class="action added"
+          />
+          <font-awesome-icon
+            v-else
+            size="lg"
+            icon="cart-plus"
+            @click="addToPortfolio(coin)"
+            class="clickable action add"
+          />
         </div>
       </li>
     </ul>
@@ -34,7 +45,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../../shared/styles/coinList';

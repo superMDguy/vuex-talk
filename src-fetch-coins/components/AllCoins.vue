@@ -30,7 +30,6 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
 @import '../../shared/styles/coinList';
 </style>

@@ -12,9 +12,7 @@
       </li>
     </ul>
 
-    <div class="portfolioValue">
-      Portfolio Value: {{ portfolioValue | currency }}
-    </div>
+    <div class="portfolioValue">Portfolio Value: {{ portfolioValue | currency }}</div>
   </div>
 </template>
 
@@ -27,7 +25,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../../shared/styles/coinList';

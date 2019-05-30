@@ -11,16 +11,29 @@
         <span>{{ coin.amountOwned }} {{ coin.symbol }} owned</span>
 
         <div class="actions">
-          <font-awesome-icon size="lg" icon="plus-square" @click="initBuy(coin)" class="clickable action buy" />
-          <font-awesome-icon size="lg" icon="minus-square" @click="initSell(coin)" class="clickable action sell" />
-          <font-awesome-icon size="lg" icon="trash-alt" @click="removeFromPortfolio(coin)" class="clickable action trash" />
+          <font-awesome-icon
+            size="lg"
+            icon="plus-square"
+            @click="initBuy(coin)"
+            class="clickable action buy"
+          />
+          <font-awesome-icon
+            size="lg"
+            icon="minus-square"
+            @click="initSell(coin)"
+            class="clickable action sell"
+          />
+          <font-awesome-icon
+            size="lg"
+            icon="trash-alt"
+            @click="removeFromPortfolio(coin)"
+            class="clickable action trash"
+          />
         </div>
       </li>
     </ul>
 
-    <div class="portfolioValue">
-      Portfolio Value: {{ portfolioValue | currency }}
-    </div>
+    <div class="portfolioValue">Portfolio Value: {{ portfolioValue | currency }}</div>
   </div>
 </template>
 
@@ -47,7 +60,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '../../shared/styles/coinList';

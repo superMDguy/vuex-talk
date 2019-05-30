@@ -2,11 +2,9 @@
   <div class="coinListWrapper">
     <h1 class="coinListTitle">Portfolio</h1>
 
-    <ul class="coinList">
-    </ul>
+    <ul class="coinList"></ul>
 
-    <div class="portfolioValue">
-    </div>
+    <div class="portfolioValue"></div>
   </div>
 </template>
 

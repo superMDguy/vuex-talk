@@ -2,8 +2,7 @@
   <div class="coinListWrapper">
     <h1 class="coinListTitle">Coins</h1>
 
-    <ul class="coinList">
-    </ul>
+    <ul class="coinList"></ul>
   </div>
 </template>
 
